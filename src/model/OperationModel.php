@@ -77,11 +77,12 @@ class OperationModel extends DB{
             {
                    $array = [
                        'solde' => $all->getSolde(),
+                       'numeroCompte' => $all->getNumero(),
                    ];
                    $data[] = $array;
                
             }else{
- 
+                $data = ['error' => 'numéro incorect' ];
             }
              
             echo json_encode($data);
