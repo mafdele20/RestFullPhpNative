@@ -12,10 +12,10 @@ use src\model\OperationModel;
 
     public function getSolde()
     {
-        if(isset($_POST['numero']))
+        if(isset($_GET['numero']))
         {
       
-            extract($_POST);
+            extract($_GET);
             $opModel = new OperationModel;
             $opModel->getSolde($numero);
       
@@ -24,13 +24,13 @@ use src\model\OperationModel;
 
     public function getOperaionByNum()
     {
-        if(isset($_POST['id']))
+        if(isset($_GET['numero']))
         {
 
-            extract($_POST);
+            extract($_GET);
             $opModel = new OperationModel;
-            $opModel->getOperationByNum($id);
-
+            $opModel->getOperationByNum($numero);
+         
 
         }
     }

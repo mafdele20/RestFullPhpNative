@@ -36,11 +36,14 @@ class OperationModel extends DB{
             header("Access-Control-Allow-Origin: *");
             header("Content-Type: application/json; charset=UTF-8");
             
-              $all = $this->db->getRepository("Operation")->findBy(['compte'=>$num]);
-      
+              $all = $this->db->createQuery("SELECT o.recu, o.montant, o.taxe ,o.dateOperation, c.numero ,t.libelle
+              FROM Operation o , Compte c ,TypeOperation t
+              WHERE c.numero='".$num."' AND c.id = o.compte  GROUP BY c.id ")->getArrayResult();
+             
+
             if($all)
             {  
-                    $i =0;
+                  /*   $i =0;
                     foreach ($all as $value) 
                     {
                         $array = [
@@ -53,15 +56,18 @@ class OperationModel extends DB{
                             'numeroCompte' => $value->getcompte()->getNumero(),
                         ];
                         $data[$i] = $array;
-                        $i++;
-                    } 
+                        $i++; */
+            echo json_encode($all);
+
+             }else{
+                 $data = 'votre compte n\'a pas d\'operation pour l\'intant';
+             echo json_encode($all);
+
+             }
             }else{
-                    
-            }
-          
-            echo json_encode($data);
+                echo 'internal serveur error';
+            }          
         }
-    }
 
     public function getSolde($num)
     {
